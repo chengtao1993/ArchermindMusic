@@ -1,0 +1,149 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.archermind.media.music.MusicFragment">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@mipmap/mainbg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:paddingTop="58dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/folder"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="125dp"
+                android:padding="10dp"
+                android:background="@mipmap/folder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/ib"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="125dp"
+                android:padding="10dp"
+                android:background="@mipmap/usb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView android:id="@+id/data_source"
+                android:layout_toLeftOf="@id/ib"
+                android:layout_marginRight="15dp"
+                android:textColor="#ffffff"
+                android:textSize="36sp"
+                android:text="本地"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="50dp"
+            android:background="@mipmap/music_list_bg"
+            android:layout_width="920dp"
+            android:layout_height="990dp">
+            <ListView
+                android:id="@+id/music_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="920dp"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <SeekBar
+                android:id="@+id/seekBar_list"
+                android:maxHeight="120dp"
+                android:minHeight="120dp"
+                android:thumb="@mipmap/music_thum"
+                android:progress="0"
+                android:progressDrawable="@drawable/music_seekbar_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <RelativeLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+                <ImageButton
+                    android:layout_marginTop="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="42dp"
+                    android:background="@drawable/list_paly"
+                    android:id="@+id/play_list"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp" />
+                <LinearLayout
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@id/play_list"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="42dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/song_list"
+                        android:textColor="#ffffff"
+                        android:textSize="40sp"
+                        android:text="青花瓷"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:maxEms="10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/singer_list"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp"
+                        android:text="周杰伦"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/mode_list"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="42dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@mipmap/list_mode1"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp" />
+                <ImageButton
+                    android:id="@+id/next_list"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/mode_list"
+                    android:layout_marginRight="42dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@mipmap/list_next"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp" />
+                <ImageButton
+                    android:id="@+id/last_list"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="32dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/next_list"
+                    android:layout_marginRight="42dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@mipmap/list_last"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

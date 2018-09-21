@@ -1,0 +1,56 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.archermind.media.photo.FillperFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/top_fillper"
+            android:paddingTop="58dp"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="32dp"
+                android:layout_marginLeft="53dp"
+                android:layout_alignParentLeft="true"
+                android:background="@mipmap/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_toRightOf="@id/ib_back"
+                android:layout_marginLeft="19dp"
+                android:text="返回"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                android:layout_marginTop="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/top_fillper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <AdapterViewFlipper
+        android:id="@+id/filllper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+        <ImageButton
+            android:padding="20dp"
+            android:visibility="gone"
+            android:id="@+id/restart"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/restart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--底层背景-->
+    <item android:id="@android:id/background"
+        android:top="-25dp"
+        android:bottom="-25dp">
+        <bitmap android:src="@drawable/volume1_2"/>
+
+    </item>
+
+    <item android:id="@android:id/progress"
+        android:top="-25dp"
+        android:bottom="-25dp">
+
+        <bitmap android:src="@drawable/volume2_2"/>
+    </item>
+</layer-list>

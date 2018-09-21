@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_volume">
+    <ImageView android:id="@+id/intensity_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/brightness_add"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="29dp"/>
+    <com.archermind.media.video.VerticalSeekBar
+        android:id="@+id/intensity_seekBar"
+        android:layout_width="48dp"
+        android:layout_height="180dp"
+        android:thumb="@null"
+        android:progressDrawable="@drawable/seekbar_volume"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="19dp"/>
+    <ImageView android:id="@+id/intensity_reduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/brightness_reduce"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>

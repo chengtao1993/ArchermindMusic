@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@mipmap/mainbg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:paddingTop="58dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageButton
+                android:id="@+id/ib_change"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="125dp"
+                android:padding="10dp"
+                android:background="@mipmap/usb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/bt_text_change"
+                android:layout_toLeftOf="@id/ib_change"
+                android:layout_marginRight="15dp"
+                android:textColor="#ffffff"
+                android:textSize="36sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="50dp"
+            android:background="@mipmap/music_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/music_pre"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="140dp"
+                android:layout_alignParentLeft="true"
+                android:background="@mipmap/pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:background="@mipmap/music_content"
+            android:layout_width="wrap_content"
+            android:layout_height="565dp">
+
+            <ImageButton
+                android:id="@+id/btMusic_play"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="82dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/music_paly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/Songer"
+                android:textColor="#ffffff"
+                android:text=""
+                android:layout_toRightOf="@id/btMusic_play"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="62dp"
+                android:textSize="32sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_above="@id/Songer"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/bt_music_name"
+                android:textColor="#ff0000"
+                android:text=""
+                android:layout_toRightOf="@id/btMusic_play"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="62dp"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:background="@mipmap/music_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/music_next"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="140dp"
+                android:layout_alignParentLeft="true"
+                android:background="@mipmap/next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
