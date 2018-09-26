@@ -49,28 +49,29 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="4">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_marginLeft="82dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="歌曲名称"
                 android:textSize="36sp" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_marginLeft="188dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="歌手"
                 android:textSize="36sp" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginLeft="260dp"
                 android:gravity="center"
                 android:text="专辑"
                 android:textSize="36sp" />
@@ -78,10 +79,10 @@
         </LinearLayout>
 
 
-           <!--<ListView
+           <ListView
                android:id="@+id/music_lv"
                android:layout_width="match_parent"
-               android:layout_height="400dp"></ListView>-->
+               android:layout_height="400dp"></ListView>
 
 
 
@@ -152,7 +153,7 @@
                 android:thumb="@mipmap/music_thum" />
 
             <TextView
-                android:id="@+id/current_time"
+                android:id="@+id/music_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -163,7 +164,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/music_time"
+                android:id="@+id/current_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"

@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -36,6 +37,8 @@ import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.archermind.music.adapter.MusicAdapter;
 import com.archermind.music.bean.MusicBean;
 import com.archermind.music.service.MusicService;
 import com.archermind.music.utils.ScanMusic;
@@ -45,7 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
-public class MusicFragment extends Fragment implements View.OnClickListener{
+public class MusicFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,10 +65,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener{
     private ImageButton music_next;
     private ImageButton music_pre;
     public static ImageButton music_play;
-    /*public static TextView song_pre;
-    public static TextView singer_pre;
-    public static TextView song_next;
-    public static TextView singer_next;*/
+
     public static SeekBar seekBar;
     public static TextView musictotal;
     public static TextView current_time;
@@ -80,6 +80,9 @@ public class MusicFragment extends Fragment implements View.OnClickListener{
     public TextView data_source;
     private ImageButton source_switch;
     private AlertDialog sourceDialog;
+    private ListView music_lv;
+    public static MusicAdapter musicAdapter;
+    public static ArrayList<MusicBean> fileInfo;
 
 
     public MusicFragment() {
@@ -127,6 +130,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_music, container, false);
+        fileInfo = ScanMusic.getData(getActivity(),MediaActivity.current_source_path);
         data_source = view.findViewById(R.id.data_source);
         data_source.setText(MediaActivity.current_source_name);
         source_switch = view.findViewById(R.id.ib);
@@ -262,33 +266,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener{
             musictotal.setVisibility(View.INVISIBLE);
             //Add by yanglin for Music Null string end
         }
-        /*if (0<currentNumber&&currentNumber<beans.size()-1) {
-            song_pre.setText(beans.get(currentNumber - 1).getText_song());
-            singer_pre.setText(beans.get(currentNumber - 1).getText_singer());
-            song_next.setText(beans.get(currentNumber + 1).getText_song());
-            singer_next.setText(beans.get(currentNumber + 1).getText_singer());
-        }else if(0==currentNumber) {
-            //Add by yanglin for Music Null string begin
-            song_pre.setText(STRING_NULL);
-            singer_pre.setText(STRING_NULL);
-            //Add by yanglin for Music Null string end
-            if(beans.size() > 1){
-                song_next.setText(beans.get(currentNumber + 1).getText_song());
-                singer_next.setText(beans.get(currentNumber + 1).getText_singer());
-            }else {
-                //Add by yanglin for Music Null string begin
-                song_next.setText(STRING_NULL);
-                singer_next.setText(STRING_NULL);
-                //Add by yanglin for Music Null string end
-            }
-        }else if(currentNumber==beans.size()-1){
-            song_pre.setText(beans.get(currentNumber -1).getText_song());
-            singer_pre.setText(beans.get(currentNumber - 1).getText_singer());
-            //Add by yanglin for Music Null string begin
-            song_next.setText(STRING_NULL);
-            singer_next.setText(STRING_NULL);
-            //Add by yanglin for Music Null string end
-        }*/
     }
 
     private void solveData() {
@@ -370,7 +347,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener{
                 tag2 = true;
             }
             musicService.playOrPause();
-           /* SystemProperties.set("service.gr.play","1");*/
             Toast.makeText(getActivity(),"开始播放",Toast.LENGTH_SHORT).show();
         }
     }
@@ -482,6 +458,10 @@ public class MusicFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initView() {
+        music_lv =(ListView)view.findViewById(R.id.music_lv);
+        musicAdapter = new MusicAdapter(getContext(), fileInfo);
+        music_lv.setAdapter(musicAdapter);
+        music_lv.setOnItemClickListener(this);
         music_next = (ImageButton) view.findViewById(R.id.music_next);
         music_next.setOnClickListener(this);
         music_pre = (ImageButton) view.findViewById(R.id.music_pre);
@@ -499,10 +479,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener{
         }
         folder = (ImageButton) view.findViewById(R.id.folder);
         folder.setOnClickListener(this);
-        /*song_pre = (TextView) view.findViewById(R.id.song_pre);
-        singer_pre = (TextView) view.findViewById(R.id.singer_pre);
-        song_next = (TextView) view.findViewById(R.id.song_next);
-        singer_next = (TextView) view.findViewById(R.id.singer_next);*/
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
        if(musicService!=null){
            if (tag2 == false) {
@@ -576,7 +552,11 @@ public class MusicFragment extends Fragment implements View.OnClickListener{
 
 
     boolean flag = false;
-
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MusicFragment.currentNumber=position;
+        changeView();
+    }
     @Override
     public void onClick(View v) {
         if (musicService==null){
@@ -824,38 +804,8 @@ private PopupWindow pop;
                 handler.post(runnable);
                 tag2 = true;
             }
-            /*if (0 < currentNumber && currentNumber < beans.size() - 1) {
-                song_pre.setText(beans.get(currentNumber - 1).getText_song());
-                singer_pre.setText(beans.get(currentNumber - 1).getText_singer());
-                song_next.setText(beans.get(currentNumber + 1).getText_song());
-                singer_next.setText(beans.get(currentNumber + 1).getText_singer());
-            } else if (0 == currentNumber) {
-                //Add by yanglin for Music Null string begin
-                song_pre.setText(STRING_NULL);
-                singer_pre.setText(STRING_NULL);
-                //Add by yanglin for Music Null string end
-                if (beans.size() > 1) {
-                    song_next.setText(beans.get(currentNumber + 1).getText_song());
-                    singer_next.setText(beans.get(currentNumber + 1).getText_singer());
-                } else {
-                    //Add by yanglin for Music Null string begin
-                    song_next.setText(STRING_NULL);
-                    singer_next.setText(STRING_NULL);
-                    //Add by yanglin for Music Null string end
-                }
-            } else if (currentNumber == beans.size() - 1) {
-                song_pre.setText(beans.get(currentNumber - 1).getText_song());
-                singer_pre.setText(beans.get(currentNumber - 1).getText_singer());
-                //Add by yanglin for Music Null string begin
-                song_next.setText(STRING_NULL);
-                singer_next.setText(STRING_NULL);
-                //Add by yanglin for Music Null string end
-            }*/
+
         }else if (beans.size() == 0){
-           /* song_pre.setText(STRING_NULL);
-            singer_pre.setText(STRING_NULL);
-            song_next.setText(STRING_NULL);
-            singer_next.setText(STRING_NULL);*/
             music_play.setSelected(false);
             song.setText(STRING_NULL);
             album.setText(STRING_NULL);
@@ -869,7 +819,6 @@ private PopupWindow pop;
         myFagment = new BtMusicFragment();
         FragmentTransaction transaction= ((MediaActivity)context).getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-//        bundle.putBoolean("flag",flag2);
         bundle.putString("titleName",titleName);
         myFagment.setArguments(bundle);
         transaction.replace(R.id.fragment_container,myFagment);
@@ -892,55 +841,7 @@ private PopupWindow pop;
             handler.post(runnable);
             tag2 = true;
         }
-        /*sendHud();*/
-
     }
-/*    private static void sendHud(){
-        *//*if (MediaActivity.mCarHUDManager != null) {
-            MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_NAME,bean.getText_song());
-            MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_ALBUM,bean.getAlbum());
-            MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_SINGER_NAME,bean.getText_singer());
-        }*//*
-        if (0<currentNumber&&currentNumber<beans.size()-1) {
-            song_pre.setText(beans.get(currentNumber - 1).getText_song());
-            singer_pre.setText(beans.get(currentNumber - 1).getText_singer());
-           *//* if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_PRE_NAME,beans.get(currentNumber - 1).getText_song());
-            }*//*
-            song_next.setText(beans.get(currentNumber + 1).getText_song());
-            singer_next.setText(beans.get(currentNumber + 1).getText_singer());
-            *//*if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_NEXT_NAME,beans.get(currentNumber +1).getText_song());
-            }*//*
-        }else if(0==currentNumber) {
-            //Add by yanglin for Music Null string begin
-            song_pre.setText(STRING_NULL);
-            singer_pre.setText(STRING_NULL);
-            //Add by yanglin for Music Null string end
-            if(beans.size() > 1){
-                song_next.setText(beans.get(currentNumber + 1).getText_song());
-                singer_next.setText(beans.get(currentNumber + 1).getText_singer());
-               *//* if (MediaActivity.mCarHUDManager != null) {
-                    MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_NEXT_NAME,beans.get(currentNumber +1).getText_song());
-                }*//*
-            }else {
-                //Add by yanglin for Music Null string begin
-                song_next.setText(STRING_NULL);
-                singer_next.setText(STRING_NULL);
-                //Add by yanglin for Music Null string end
-            }
-        }else if(currentNumber==beans.size()-1){
-            song_pre.setText(beans.get(currentNumber -1).getText_song());
-            singer_pre.setText(beans.get(currentNumber - 1).getText_singer());
-            //Add by yanglin for Music Null string begin
-            *//*if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_PRE_NAME,beans.get(currentNumber - 1).getText_song());
-            }*//*
-            song_next.setText(STRING_NULL);
-            singer_next.setText(STRING_NULL);
-            //Add by yanglin for Music Null string end
-        }
-    }*/
 
     //进入到音乐列表界面
     private Fragment myFagment;

@@ -58,8 +58,10 @@ public class MusicAdapter extends BaseAdapter {
 
 
     class ViewHolder{
-        ImageView ivImage;
+        ImageView isPlaying;
         TextView music_name;
+        TextView music_singer;
+        TextView music_album;
     }
 
     @Override
@@ -68,8 +70,10 @@ public class MusicAdapter extends BaseAdapter {
         if (convertView==null){
             viewHolder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.item_music,null);
-            viewHolder.ivImage = (ImageView)convertView.findViewById(R.id.iv_music);
-            viewHolder.music_name=(TextView) convertView.findViewById(R.id.music_name);
+            viewHolder.isPlaying = (ImageView) convertView.findViewById(R.id.icon_playing);
+            viewHolder.music_name = (TextView) convertView.findViewById(R.id.music_name);
+            viewHolder.music_singer = (TextView) convertView.findViewById(R.id.music_singer);
+            viewHolder.music_album = (TextView) convertView.findViewById(R.id.music_album);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
@@ -77,12 +81,13 @@ public class MusicAdapter extends BaseAdapter {
         if (fileInfo.size()>0){
             bean = fileInfo.get(position);
             if(position==pos){
-
+                viewHolder.isPlaying.setVisibility(View.VISIBLE);
             }else {
-                Bitmap bitmap= ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,true);
-                viewHolder.ivImage.setImageBitmap(bitmap);
+                viewHolder.isPlaying.setVisibility(View.INVISIBLE);
             }
             viewHolder.music_name.setText(fileInfo.get(position).getText_song());
+            viewHolder.music_singer.setText(fileInfo.get(position).getText_singer());
+            viewHolder.music_album.setText(fileInfo.get(position).getAlbum());
             if (position== MusicFragment.currentNumber){
                 viewHolder.music_name.setTextColor(Color.GREEN);
             }else {
