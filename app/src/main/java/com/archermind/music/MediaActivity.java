@@ -4,10 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothProfile;
-import com.archermind.music.R;
-/*import android.car.export.Car;
-import android.car.export.CarHUDManager;
-import android.car.export.CarNotConnectedException;*/
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -21,7 +17,6 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-/*import android.os.SystemProperties;*/
 import android.provider.MediaStore.Images;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -31,22 +26,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
-/*import android.widget.Toast;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothProfile;*/
-import com.archermind.music.BtMusicFragment;
-import com.archermind.music.MusicFragment;
-import com.archermind.music.MusicListFragment;
 import com.archermind.music.utils.ScanMusic;
-/*import com.archermind.media.photo.PictureFragment;
-import com.archermind.media.video.FileInfo;
-import com.archermind.media.video.VideoFragment;
-import com.archermind.media.video.VideoPlayFragment;
-import com.archermind.media.video.VideoUtils;*/
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

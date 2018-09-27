@@ -18,10 +18,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.PermissionChecker;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.archermind.music.adapter.MusicAdapter;
+import com.archermind.music.adapter.ViewPagerAdapter;
 import com.archermind.music.bean.MusicBean;
 import com.archermind.music.service.MusicService;
 import com.archermind.music.utils.ScanMusic;
@@ -46,6 +50,7 @@ import com.archermind.music.utils.ScanMusic;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MusicFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemClickListener{
@@ -83,6 +88,12 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     private ListView music_lv;
     public static MusicAdapter musicAdapter;
     public static ArrayList<MusicBean> fileInfo;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
+    private int[] layouts = new int[]{R.layout.play_list,R.layout.favorite_list};
+    public ArrayList<View> view_list = new ArrayList<>();
+    private View allListView;
+    private int[] tabName = new int[]{R.string.tab_all,R.string.tab_favorite};
 
 
     public MusicFragment() {
@@ -111,6 +122,10 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        for (int i = 0; i <layouts.length ; i++) {
+            View v = getLayoutInflater().inflate(layouts[i],null);
+            view_list.add(v);
+        }
         Log.i("ccc","oncreate"+getArguments());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -130,6 +145,13 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_music, container, false);
+        allListView = inflater.inflate(R.layout.play_list, container, false);
+        mViewPager = view.findViewById(R.id.view_pager);
+        mViewPager.setAdapter(new ViewPagerAdapter(view_list,getContext()));
+        mTabLayout = view.findViewById(R.id.tab_layout);
+        mTabLayout.addTab(mTabLayout.newTab().setText("全部"),0,true);
+        mTabLayout.addTab(mTabLayout.newTab().setText("收藏"),0,false);
+        mTabLayout.setupWithViewPager(mViewPager,true);
         fileInfo = ScanMusic.getData(getActivity(),MediaActivity.current_source_path);
         data_source = view.findViewById(R.id.data_source);
         data_source.setText(MediaActivity.current_source_name);
@@ -458,7 +480,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     }
 
     private void initView() {
-        music_lv =(ListView)view.findViewById(R.id.music_lv);
+        music_lv = allListView.findViewById(R.id.music_lv);
         musicAdapter = new MusicAdapter(getContext(), fileInfo);
         music_lv.setAdapter(musicAdapter);
         music_lv.setOnItemClickListener(this);

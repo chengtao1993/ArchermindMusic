@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tab_all">全部</string>
+    <string name="tab_favorite">收藏</string>
+</resources>
