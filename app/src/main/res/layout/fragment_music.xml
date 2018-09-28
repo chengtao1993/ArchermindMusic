@@ -26,15 +26,21 @@
                 android:background="@mipmap/folder"
                 android:padding="10dp" />
 
-            <ImageButton
-                android:id="@+id/ib"
+
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="125dp"
-                android:background="@mipmap/usb"
-                android:padding="10dp" />
-
+                android:textSize="36sp"
+                android:text="搜索"/>
             <TextView
                 android:id="@+id/data_source"
                 android:layout_width="wrap_content"
@@ -44,25 +50,31 @@
                 android:text="本地"
                 android:textColor="#ffffff"
                 android:textSize="36sp" />
+            <ImageButton
+                android:id="@+id/ib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/usb"
+                android:padding="10dp" />
+            <ImageButton
+                android:id="@+id/words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/words" />
+            <android.support.design.widget.TabLayout
+                android:layout_gravity="right"
+                android:id="@+id/tab_layout"
+                android:layout_width="944dp"
+                android:layout_height="135dp"
+            style="@style/Home_TabLayout"
+                >
 
-        </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="4">
+            </android.support.design.widget.TabLayout>
 
         </LinearLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="944dp"
-            android:layout_height="135dp"
-            style="@style/Home_TabLayout"
-            >
 
-
-        </android.support.design.widget.TabLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,7 +108,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="500dp">
         </android.support.v4.view.ViewPager>
 
 
@@ -113,8 +125,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="62dp"
-                android:layout_toRightOf="@id/music_play"
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
@@ -124,18 +134,7 @@
                 android:textColor="#a2a2a2"
                 android:textSize="25sp" />
 
-            <TextView
-                android:id="@+id/song"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/album_music"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="62dp"
-                android:layout_toRightOf="@id/music_play"
-                android:text=""
-                android:textColor="#ffffff"
-                android:textSize="32sp" />
+
 
 
         </RelativeLayout>
@@ -200,14 +199,14 @@
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
-                android:id="@+id/song_name"
+                android:id="@+id/song"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/seekBar"
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="-62dp"
                 android:layout_marginStart="152dp"
-                android:text="TextView" />
+                android:textSize="32sp" />
 
 
         </RelativeLayout>
@@ -248,29 +247,6 @@
                         android:layout_centerVertical="true"
                         android:background="@mipmap/pre" />
 
-                    <!-- <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/song_pre"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="#ffffff"
-                            android:textSize="36sp" />
-
-                        <TextView
-                            android:id="@+id/singer_pre"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="#535353"
-                            android:textSize="20sp" />
-
-                    </LinearLayout>-->
 
                 </RelativeLayout>
 
@@ -336,24 +312,7 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
 
-
-            <ImageButton
-                android:id="@+id/words"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="100dp"
-                android:layout_marginTop="44dp"
-                android:layout_weight="1"
-                android:background="@mipmap/words" />
-
-
-        </LinearLayout>
 
     </LinearLayout>
 

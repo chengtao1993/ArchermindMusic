@@ -149,8 +149,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         mViewPager = view.findViewById(R.id.view_pager);
         mViewPager.setAdapter(new ViewPagerAdapter(view_list,getContext()));
         mTabLayout = view.findViewById(R.id.tab_layout);
-        mTabLayout.addTab(mTabLayout.newTab().setText("全部"),0,true);
-        mTabLayout.addTab(mTabLayout.newTab().setText("收藏"),0,false);
         mTabLayout.setupWithViewPager(mViewPager,true);
         fileInfo = ScanMusic.getData(getActivity(),MediaActivity.current_source_path);
         data_source = view.findViewById(R.id.data_source);
