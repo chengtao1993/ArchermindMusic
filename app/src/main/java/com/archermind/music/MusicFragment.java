@@ -3,7 +3,6 @@ package com.archermind.music;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import com.archermind.music.R;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothProfile;
@@ -23,7 +22,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.PermissionChecker;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -50,7 +48,6 @@ import com.archermind.music.utils.ScanMusic;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MusicFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemClickListener{
@@ -90,7 +87,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     public static ArrayList<MusicBean> fileInfo;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private int[] layouts = new int[]{R.layout.play_list,R.layout.favorite_list};
+    private int[] layouts = new int[]{R.layout.all_list,R.layout.favorite_list};
     public ArrayList<View> view_list = new ArrayList<>();
     private View allListView;
     private int[] tabName = new int[]{R.string.tab_all,R.string.tab_favorite};
@@ -145,7 +142,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_music, container, false);
-        allListView = inflater.inflate(R.layout.play_list, container, false);
+        allListView = inflater.inflate(R.layout.all_list, container, false);
         mViewPager = view.findViewById(R.id.view_pager);
         mViewPager.setAdapter(new ViewPagerAdapter(view_list,getContext()));
         mTabLayout = view.findViewById(R.id.tab_layout);
