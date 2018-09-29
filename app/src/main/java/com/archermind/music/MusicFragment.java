@@ -67,18 +67,15 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     private ImageButton music_next;
     private ImageButton music_pre;
     public static ImageButton music_play;
-
     public static SeekBar seekBar;
     public static TextView musictotal;
     public static TextView current_time;
     private ImageButton folder;
     public static ArrayList<MusicBean> beans;
-    public static TextView album;
     public static TextView song;
     private ImageButton words;
     private ImageButton setting;
     private ImageButton playMode;
-
     public TextView data_source;
     private ImageButton source_switch;
     private AlertDialog sourceDialog;
@@ -89,13 +86,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     private TabLayout mTabLayout;
     private int[] layouts = new int[]{R.layout.all_list,R.layout.favorite_list};
     public ArrayList<View> view_list = new ArrayList<>();
-    private View allListView;
-    private int[] tabName = new int[]{R.string.tab_all,R.string.tab_favorite};
-
-
-    public MusicFragment() {
-        // Required empty public constructor
-    }
+    private static final int ALL_MUSIC_PAGE = 0;
 
     /**
      * Use this factory method to create a new instance of
@@ -142,7 +133,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_music, container, false);
-        allListView = inflater.inflate(R.layout.all_list, container, false);
         mViewPager = view.findViewById(R.id.view_pager);
         mViewPager.setAdapter(new ViewPagerAdapter(view_list,getContext()));
         mTabLayout = view.findViewById(R.id.tab_layout);
@@ -176,8 +166,8 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
             seekBar.setMax(musicService.mediaPlayer.getDuration());
             //获取其时长
             if (bean != null) {
+                MusicFragment.
                 song.setText(bean.getText_song());
-                album.setText(bean.getAlbum());
                 //Add by yanglin for Music Null string begin
                 current_time.setVisibility(View.VISIBLE);
                 musictotal.setVisibility(View.VISIBLE);
@@ -185,7 +175,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
             }else {
                 //Add by yanglin for Music Null string begin
                 song.setText(STRING_NULL);
-                album.setText(STRING_NULL);
                 current_time.setVisibility(View.INVISIBLE);
                 musictotal.setVisibility(View.INVISIBLE);
                 //Add by yanglin for Music Null string end
@@ -270,7 +259,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         musictotal.setText("/"+time.format(musicService.mediaPlayer.getDuration()));
         if (bean != null) {
             song.setText(bean.getText_song());
-            album.setText(bean.getAlbum());
             //Add by yanglin for Music Null string begin
             current_time.setVisibility(View.VISIBLE);
             musictotal.setVisibility(View.VISIBLE);
@@ -278,7 +266,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         }else {
             //Add by yanglin for Music Null string begin
             song.setText(STRING_NULL);
-            album.setText(STRING_NULL);
             current_time.setVisibility(View.INVISIBLE);
             musictotal.setVisibility(View.INVISIBLE);
             //Add by yanglin for Music Null string end
@@ -475,7 +462,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     }
 
     private void initView() {
-        music_lv = allListView.findViewById(R.id.music_lv);
+        music_lv = view_list.get(ALL_MUSIC_PAGE).findViewById(R.id.music_lv);
         musicAdapter = new MusicAdapter(getContext(), fileInfo);
         music_lv.setAdapter(musicAdapter);
         music_lv.setOnItemClickListener(this);
@@ -526,8 +513,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         //Add by yanglin for Music Null string begin
         current_time.setVisibility(View.INVISIBLE);
         musictotal.setVisibility(View.INVISIBLE);
-        //Add by yanglin for Music Null string end
-        album = (TextView) view.findViewById(R.id.album_music);
         song = (TextView) view.findViewById(R.id.song);
         words = (ImageButton) view.findViewById(R.id.words);
         words.setOnClickListener(this);
@@ -816,7 +801,6 @@ private PopupWindow pop;
             music_play.setSelected(true);
             musictotal.setText("/" + time.format(musicService.mediaPlayer.getDuration()));
             song.setText(bean.getText_song());
-            album.setText(bean.getAlbum());
             if (tag2 == false) {
                 handler.post(runnable);
                 tag2 = true;
@@ -825,7 +809,6 @@ private PopupWindow pop;
         }else if (beans.size() == 0){
             music_play.setSelected(false);
             song.setText(STRING_NULL);
-            album.setText(STRING_NULL);
             current_time.setText(STRING_NULL);
             musictotal.setText(STRING_NULL);
         }
@@ -853,7 +836,6 @@ private PopupWindow pop;
         music_play.setSelected(true);
         musictotal.setText("/"+time.format(musicService.mediaPlayer.getDuration()));
         song.setText(bean.getText_song());
-        album.setText(bean.getAlbum());
         if (tag2 == false) {
             handler.post(runnable);
             tag2 = true;

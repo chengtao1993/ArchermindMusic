@@ -114,7 +114,7 @@
 
 
 
-        <RelativeLayout
+<!--        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="400dp"
             android:background="@mipmap/music_content">
@@ -137,7 +137,7 @@
 
 
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                 android:minHeight="10dp"
                 android:progress="0"
                 android:progressDrawable="@drawable/music_seekbar_bg"
-                android:thumb="@mipmap/music_thum" />
+                 />
 
             <TextView
                 android:id="@+id/music_time"
