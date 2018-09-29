@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.archermind.media.music.MusicFragment">
+    tools:context="com.archermind.music.MusicFragment">
 
     <LinearLayout
         android:gravity="center_horizontal"
@@ -48,7 +48,7 @@
             android:layout_width="920dp"
             android:layout_height="990dp"
             android:padding="20dp">
-            <com.archermind.media.music.view.LrcView
+            <com.archermind.music.view.LrcView
                 android:lineSpacingExtra="18dp"
                 android:id="@+id/music_words"
                 android:gravity="center"
@@ -56,7 +56,7 @@
                 android:textSize="40sp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            </com.archermind.media.music.view.LrcView>
+            </com.archermind.music.view.LrcView>
         </RelativeLayout>
         <RelativeLayout
             android:layout_marginTop="30dp"
@@ -67,7 +67,6 @@
                 android:id="@+id/seekBar_words"
                 android:maxHeight="120dp"
                 android:minHeight="120dp"
-                android:thumb="@mipmap/music_thum"
                 android:progress="0"
                 android:progressDrawable="@drawable/music_seekbar_bg"
                 android:layout_width="match_parent"

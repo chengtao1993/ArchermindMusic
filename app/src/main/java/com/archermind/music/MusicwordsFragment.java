@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import com.archermind.music.MediaActivity;
-import com.archermind.music.R;
 import com.archermind.music.bean.LrcContent;
 import com.archermind.music.bean.MusicBean;
 import com.archermind.music.utils.LrcProcess;
