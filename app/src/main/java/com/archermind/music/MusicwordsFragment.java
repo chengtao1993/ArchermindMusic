@@ -141,7 +141,6 @@ public class MusicwordsFragment extends Fragment implements View.OnClickListener
         //传回处理后的歌词
         lrcList = mlrcProcess.getLrcList();
         music_words.setmLrcList(lrcList);
-        Log.d("hct",""+lrcList.size());
         handler.post(mRunnable);
 
     }

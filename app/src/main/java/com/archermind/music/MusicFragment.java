@@ -846,6 +846,7 @@ private PopupWindow pop;
         if(musicService==null){
             return;
         }
+        musicAdapter.notifyDataSetChanged();
         musicService.lastOrnext();
         musicService.tag = true;
         music_play.setSelected(true);
