@@ -114,30 +114,22 @@
 
 
 
-<!--        <RelativeLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_marginTop="50dp"
+            android:background="@mipmap/music_list_bg"
+            android:layout_width="920dp"
             android:layout_height="400dp"
-            android:background="@mipmap/music_content">
-
-
-            <TextView
-                android:id="@+id/album_music"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:maxEms="10"
-                android:singleLine="true"
-                android:text=""
-                android:textColor="#a2a2a2"
-                android:textSize="25sp" />
-
-
-
-
-        </RelativeLayout>-->
+            android:padding="20dp">
+            <com.archermind.music.view.LrcView
+                android:lineSpacingExtra="18dp"
+                android:id="@+id/music_words"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="40sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.archermind.music.view.LrcView>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -210,7 +202,6 @@
 
 
         </RelativeLayout>
-
 
         <LinearLayout
             android:id="@+id/bottom_button"

@@ -2,7 +2,7 @@ package com.archermind.music.bean;
 
 /**
  * 歌词的实体类
- * Created by archermind on 18-1-23.
+ *
  */
 
 public class LrcContent {

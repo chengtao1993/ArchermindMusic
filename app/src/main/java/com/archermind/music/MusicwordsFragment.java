@@ -141,7 +141,7 @@ public class MusicwordsFragment extends Fragment implements View.OnClickListener
         //传回处理后的歌词
         lrcList = mlrcProcess.getLrcList();
         music_words.setmLrcList(lrcList);
-        Log.i("ddd",""+lrcList.size());
+        Log.d("hct",""+lrcList.size());
         handler.post(mRunnable);
 
     }
@@ -226,8 +226,8 @@ private int index=0;
                 }
                 MusicFragment.bean=fileInfo.get(MusicFragment.currentNumber);
                 MusicFragment.musicService.lastOrnext();
-                initLrc();
                 changeView();
+                initLrc();
 
                 break;
             case R.id.next_words:
@@ -238,8 +238,8 @@ private int index=0;
                 }
                 MusicFragment.bean=fileInfo.get(MusicFragment.currentNumber);
                 MusicFragment.musicService.lastOrnext();
-                initLrc();
                 changeView();
+                initLrc();
                 break;
             case R.id.mode_words:
                 if (MusicFragment.modeNumber<2){

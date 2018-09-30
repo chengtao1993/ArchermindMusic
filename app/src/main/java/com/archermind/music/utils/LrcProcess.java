@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * 处理歌词的类
- * Created by archermind on 18-1-23.
+ *
  */
 
 public class LrcProcess {
@@ -36,7 +36,7 @@ public class LrcProcess {
         try {
         //创建一个文件输入流对象
             FileInputStream fis = new FileInputStream(f);
-            InputStreamReader isr = new InputStreamReader(fis, "GBK");
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
             BufferedReader br = new BufferedReader(isr);
             String s="";
             while ((s=br.readLine())!=null){

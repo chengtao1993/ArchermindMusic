@@ -41,13 +41,17 @@ import android.widget.Toast;
 
 import com.archermind.music.adapter.MusicAdapter;
 import com.archermind.music.adapter.ViewPagerAdapter;
+import com.archermind.music.bean.LrcContent;
 import com.archermind.music.bean.MusicBean;
 import com.archermind.music.service.MusicService;
+import com.archermind.music.utils.LrcProcess;
 import com.archermind.music.utils.ScanMusic;
+import com.archermind.music.view.LrcView;
 
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MusicFragment extends Fragment implements View.OnClickListener,AdapterView.OnItemClickListener{
@@ -87,6 +91,10 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     private int[] layouts = new int[]{R.layout.all_list,R.layout.favorite_list};
     public ArrayList<View> view_list = new ArrayList<>();
     private static final int ALL_MUSIC_PAGE = 0;
+    private LrcView music_words;
+    private int currentTime;
+    private List<LrcContent> lrcList;
+    private LrcProcess mlrcProcess;
 
     /**
      * Use this factory method to create a new instance of
@@ -454,6 +462,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     public void onResume() {
         super.onResume();
         initView();
+        initLrc();
         /*SystemProperties.set("service.gr.show","1");*/
         //对获得的参数进行修订
         MediaActivity.musicFragmentTab=5;
@@ -462,6 +471,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     }
 
     private void initView() {
+        music_words = (LrcView) view.findViewById(R.id.music_words);
         music_lv = view_list.get(ALL_MUSIC_PAGE).findViewById(R.id.music_lv);
         musicAdapter = new MusicAdapter(getContext(), fileInfo);
         music_lv.setAdapter(musicAdapter);
@@ -558,6 +568,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         MusicFragment.currentNumber=position;
         changeView();
+        initLrc();
     }
     @Override
     public void onClick(View v) {
@@ -574,6 +585,8 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                 }else {
                     currentNumber=beans.size()-1;
                 }
+                bean=fileInfo.get(MusicFragment.currentNumber);
+                initLrc();
                 changeView();
                 break;
             case R.id.music_next:
@@ -587,6 +600,8 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                     currentNumber=0;
                     //Toast.makeText(getActivity(), "已经是最后一首", Toast.LENGTH_SHORT).show();
                 }
+                bean=fileInfo.get(MusicFragment.currentNumber);
+                initLrc();
                 changeView();
                 break;
             case R.id.music_play:
@@ -871,4 +886,54 @@ private PopupWindow pop;
         transaction.replace(R.id.fragment_container,wordsFagment);
         transaction.commit();
     }
+    /*处理歌词begin*/
+    private void initLrc() {
+        mlrcProcess = new LrcProcess();
+        mlrcProcess.readLRC(MusicFragment.bean.getPath());
+        //传回处理后的歌词
+        lrcList = mlrcProcess.getLrcList();
+        music_words.setmLrcList(lrcList);
+        Log.d("hct",""+lrcList.size());
+        refreshLrcHandler.post(mRunnable);
+
+    }
+    public Handler refreshLrcHandler = new Handler();
+    //刷新歌词
+    Runnable mRunnable=new Runnable() {
+        @Override
+        public void run() {
+            music_words.setIndex(lrcIndex());
+            music_words.invalidate();
+            refreshLrcHandler.postDelayed(mRunnable,100);
+        }
+    };
+    /**
+     * 根据时间获取歌词显示的索引值
+     * */
+    private int index=0;
+    private int duration;
+
+    public int lrcIndex(){
+
+        if (musicService!=null&&musicService.mediaPlayer.isPlaying()){
+            currentTime = musicService.mediaPlayer.getCurrentPosition();
+            duration = musicService.mediaPlayer.getDuration();
+        }if (currentTime<duration){
+            for (int i = 0; i <lrcList.size() ; i++) {
+                if(i<lrcList.size()-1){
+                    if (currentTime<lrcList.get(i).getLrcTime()&&i==0){
+                        index=i;
+                    }
+                    if (currentTime>lrcList.get(i).getLrcTime()&&currentTime<lrcList.get(i+1).getLrcTime()){
+                        index=i;
+                    }
+                    if (i==lrcList.size()-1){
+                        index=i;
+                    }
+                }
+            }
+        }
+        return  index;
+    }
+    /*处理歌词end*/
 }
