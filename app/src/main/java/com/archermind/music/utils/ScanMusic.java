@@ -270,7 +270,7 @@ public class ScanMusic {
      * @param allowdefalut
      * @return
      */
-    public static Bitmap getArtwork(Context context, long song_id, long album_id, boolean allowdefalut, boolean small){
+    public  static Bitmap getArtwork(Context context, long song_id, long album_id, boolean allowdefalut, boolean small){
         if(album_id < 0) {
             if(song_id < 0) {
                 Bitmap bm = getArtworkFromFile(context, song_id, -1);
@@ -332,6 +332,7 @@ public class ScanMusic {
         }
         return null;
     }
+
 
     /**
      * 缩放

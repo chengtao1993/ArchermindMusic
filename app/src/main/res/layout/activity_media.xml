@@ -6,40 +6,9 @@
     android:fitsSystemWindows="true">
     <LinearLayout android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="1335dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/home_bg">
+        android:background="#000000">
     </LinearLayout>
-<!--    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="@drawable/tab_under_line"
-        android:gravity="center"
-        android:layout_gravity="bottom">
-        <TextView android:id="@+id/music"
-            android:layout_width="156dp"
-            android:layout_height="130dp"
-            android:text="音乐"
-            android:textColor="@color/tab_text_color"
-            android:textSize="36dp"
-            android:gravity="bottom|center_horizontal"
-            android:drawableBottom="@drawable/text_underline"/>
-        <TextView android:id="@+id/video"
-            android:layout_width="156dp"
-            android:layout_height="130dp"
-            android:text="视频"
-            android:textColor="@color/tab_text_color"
-            android:textSize="36dp"
-            android:gravity="bottom|center_horizontal"
-            android:drawableBottom="@drawable/text_underline"/>
-        <TextView android:id="@+id/photo"
-            android:layout_width="156dp"
-            android:layout_height="130dp"
-            android:text="图片"
-            android:textColor="@color/tab_text_color"
-            android:textSize="36dp"
-            android:gravity="bottom|center_horizontal"
-            android:drawableBottom="@drawable/text_underline"/>
-    </LinearLayout>-->
 
 </LinearLayout>

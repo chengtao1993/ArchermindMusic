@@ -8,8 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/mainbg"
-        android:gravity="center_horizontal"
+        android:background="#000000"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -27,20 +26,18 @@
                 android:padding="10dp" />
 
 
-
-
-
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="36sp"
-                android:text="搜索"/>
+                android:text="搜索"
+                android:textSize="36sp" />
+
             <TextView
                 android:id="@+id/data_source"
                 android:layout_width="wrap_content"
@@ -50,24 +47,26 @@
                 android:text="本地"
                 android:textColor="#ffffff"
                 android:textSize="36sp" />
+
             <ImageButton
                 android:id="@+id/ib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/usb"
                 android:padding="10dp" />
+
             <ImageButton
                 android:id="@+id/words"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/words" />
+
             <android.support.design.widget.TabLayout
-                android:layout_gravity="right"
                 android:id="@+id/tab_layout"
+                style="@style/Home_TabLayout"
                 android:layout_width="944dp"
                 android:layout_height="135dp"
-                style="@style/Home_TabLayout"
-                >
+                android:layout_gravity="right">
 
 
             </android.support.design.widget.TabLayout>
@@ -78,20 +77,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#36393B"
             android:weightSum="4">
 
             <TextView
-                android:layout_marginLeft="82dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="82dp"
                 android:gravity="center"
                 android:text="歌曲名称"
                 android:textSize="36sp" />
 
             <TextView
-                android:layout_marginLeft="188dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="188dp"
                 android:gravity="center"
                 android:text="歌手"
                 android:textSize="36sp" />
@@ -105,49 +105,67 @@
                 android:textSize="36sp" />
 
         </LinearLayout>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
-        </android.support.v4.view.ViewPager>
+            android:layout_height="400dp"></android.support.v4.view.ViewPager>
 
 
 
 
-        <RelativeLayout
-            android:layout_marginTop="50dp"
-            android:background="@mipmap/music_list_bg"
-            android:layout_width="920dp"
-            android:layout_height="400dp"
-            android:padding="20dp">
             <com.archermind.music.view.LrcView
-                android:lineSpacingExtra="18dp"
                 android:id="@+id/music_words"
-                android:gravity="center"
-                android:textColor="#ffffff"
-                android:textSize="40sp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </com.archermind.music.view.LrcView>
-        </RelativeLayout>
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:lineSpacingExtra="18dp"
+                android:textColor="#ffffff"
+                android:textSize="40sp"></com.archermind.music.view.LrcView>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp">
 
+            <ImageView
+                android:id="@+id/song_pic"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="28dp"
+                android:src="@drawable/song_pic" />
 
+            <TextView
+                android:id="@+id/song"
+                android:text="未知歌曲名"
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:gravity="center|left"
+                android:paddingStart="30dp"
+                android:drawableLeft="@drawable/song_name_icon"
+                android:textSize="32sp" />
             <ImageButton
                 android:id="@+id/setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="44dp"
+                android:layout_marginLeft="200dp"
                 android:src="@mipmap/equalizer" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp">
+
+
+
 
             <SeekBar
                 android:id="@+id/seekBar"
-                android:layout_below="@+id/setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -156,8 +174,7 @@
                 android:maxHeight="10dp"
                 android:minHeight="10dp"
                 android:progress="0"
-                android:progressDrawable="@drawable/music_seekbar_bg"
-                 />
+                android:progressDrawable="@drawable/music_seekbar_bg" />
 
             <TextView
                 android:id="@+id/music_time"
@@ -181,25 +198,6 @@
                 android:textColor="#a2a2a2"
                 android:textSize="20sp" />
 
-            <ImageView
-                android:id="@+id/song_pic"
-                android:layout_width="96dp"
-                android:layout_height="100dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="28dp"
-                android:src="@mipmap/ic_launcher" />
-
-            <TextView
-                android:id="@+id/song"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/seekBar"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="-62dp"
-                android:layout_marginStart="152dp"
-                android:textSize="32sp" />
-
 
         </RelativeLayout>
 
@@ -208,13 +206,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            >
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_gravity="bottom">
 
             <ImageButton
                 android:id="@+id/playMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
                 android:background="@mipmap/play_mode1"
                 android:scaleType="centerInside" />
 
@@ -227,7 +226,6 @@
                 android:orientation="horizontal">
 
 
-
                 <ImageButton
                     android:id="@+id/music_pre"
                     android:layout_width="wrap_content"
@@ -235,9 +233,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:background="@mipmap/pre" />
-
-
-
 
 
                 <ImageButton
@@ -252,8 +247,6 @@
                     android:scaleType="center" />
 
 
-
-
                 <ImageButton
                     android:id="@+id/music_next"
                     android:layout_width="wrap_content"
@@ -263,21 +256,17 @@
                     android:background="@mipmap/next" />
 
 
-
-
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
+                android:layout_marginRight="20dp"
                 android:background="@mipmap/favorite_button"
                 android:scaleType="centerCrop" />
 
         </LinearLayout>
-
-
 
 
     </LinearLayout>

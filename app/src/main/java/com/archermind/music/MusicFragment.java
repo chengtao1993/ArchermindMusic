@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +33,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -95,6 +97,8 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     private int currentTime;
     private List<LrcContent> lrcList;
     private LrcProcess mlrcProcess;
+    private static ImageView song_pic;
+    private static Context mContext;
 
     /**
      * Use this factory method to create a new instance of
@@ -139,6 +143,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mContext = getContext();
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_music, container, false);
         mViewPager = view.findViewById(R.id.view_pager);
@@ -176,6 +181,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
             if (bean != null) {
                 MusicFragment.
                 song.setText(bean.getText_song());
+                song_pic.setImageBitmap(ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,false));
                 //Add by yanglin for Music Null string begin
                 current_time.setVisibility(View.VISIBLE);
                 musictotal.setVisibility(View.VISIBLE);
@@ -183,6 +189,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
             }else {
                 //Add by yanglin for Music Null string begin
                 song.setText(STRING_NULL);
+                song_pic.setImageBitmap(ScanMusic.getDefaultArtwork(mContext,false));
                 current_time.setVisibility(View.INVISIBLE);
                 musictotal.setVisibility(View.INVISIBLE);
                 //Add by yanglin for Music Null string end
@@ -267,6 +274,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         musictotal.setText("/"+time.format(musicService.mediaPlayer.getDuration()));
         if (bean != null) {
             song.setText(bean.getText_song());
+            song_pic.setImageBitmap(ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,false));
             //Add by yanglin for Music Null string begin
             current_time.setVisibility(View.VISIBLE);
             musictotal.setVisibility(View.VISIBLE);
@@ -274,6 +282,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         }else {
             //Add by yanglin for Music Null string begin
             song.setText(STRING_NULL);
+            song_pic.setImageBitmap(ScanMusic.getDefaultArtwork(mContext,false));
             current_time.setVisibility(View.INVISIBLE);
             musictotal.setVisibility(View.INVISIBLE);
             //Add by yanglin for Music Null string end
@@ -524,6 +533,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         current_time.setVisibility(View.INVISIBLE);
         musictotal.setVisibility(View.INVISIBLE);
         song = (TextView) view.findViewById(R.id.song);
+        song_pic = (ImageView)view.findViewById(R.id.song_pic);
         words = (ImageButton) view.findViewById(R.id.words);
         words.setOnClickListener(this);
         setting = (ImageButton) view.findViewById(R.id.setting);
@@ -816,6 +826,7 @@ private PopupWindow pop;
             music_play.setSelected(true);
             musictotal.setText("/" + time.format(musicService.mediaPlayer.getDuration()));
             song.setText(bean.getText_song());
+            song_pic.setImageBitmap(ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,false));
             if (tag2 == false) {
                 handler.post(runnable);
                 tag2 = true;
@@ -824,6 +835,7 @@ private PopupWindow pop;
         }else if (beans.size() == 0){
             music_play.setSelected(false);
             song.setText(STRING_NULL);
+            song_pic.setImageBitmap(ScanMusic.getDefaultArtwork(getContext(),false));
             current_time.setText(STRING_NULL);
             musictotal.setText(STRING_NULL);
         }
@@ -852,6 +864,7 @@ private PopupWindow pop;
         music_play.setSelected(true);
         musictotal.setText("/"+time.format(musicService.mediaPlayer.getDuration()));
         song.setText(bean.getText_song());
+        song_pic.setImageBitmap(ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,false));
         if (tag2 == false) {
             handler.post(runnable);
             tag2 = true;
@@ -890,7 +903,9 @@ private PopupWindow pop;
     /*处理歌词begin*/
     private void initLrc() {
         mlrcProcess = new LrcProcess();
-        mlrcProcess.readLRC(MusicFragment.bean.getPath());
+        if(bean!=null) {
+            mlrcProcess.readLRC(bean.getPath());
+        }
         //传回处理后的歌词
         lrcList = mlrcProcess.getLrcList();
         music_words.setmLrcList(lrcList);
@@ -937,4 +952,5 @@ private PopupWindow pop;
         return  index;
     }
     /*处理歌词end*/
+
 }

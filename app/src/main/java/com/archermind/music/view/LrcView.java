@@ -101,7 +101,7 @@ public class LrcView extends TextView {
              canvas.drawText(mlrclist.get(i).getLrcStr(),width/2,tempy,notCurrentPaint);
          }
           }catch (Exception e){
-            setText("...无歌词文件，需赶紧下载...");
+            setText("未找到对应歌词");
           }
 
     }
