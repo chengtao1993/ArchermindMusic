@@ -41,7 +41,7 @@ public class MediaActivity extends FragmentActivity {
     private FragmentTransaction fragmentTransaction;
     public MusicFragment musicFragment;
     private Intent intent;
-    public static String current_source_name = "本地";
+    public static String current_source_name = "U盘";
     public static String current_source_path = "external";
     public static HashMap<String,String> name_path = new HashMap();
     private String startFragment;
@@ -81,7 +81,7 @@ public class MediaActivity extends FragmentActivity {
             }
         };
         registerReceiver(usb_out,filter);
-        name_path.put("本地","external");
+        name_path.put("U盘","external");
         musicFragment = new MusicFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -97,7 +97,6 @@ public class MediaActivity extends FragmentActivity {
                 fragmentTransaction.add(R.id.fragment_container,musicFragment);
                 fragmentTransaction.commit();
                 displayTab = musicTab;
-                /*SystemProperties.set(service.gr.show","1");*/
             }
         }else {
             if (bluetoothAdapter != null

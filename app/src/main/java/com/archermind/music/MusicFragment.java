@@ -76,10 +76,8 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     public static SeekBar seekBar;
     public static TextView musictotal;
     public static TextView current_time;
-    private ImageButton folder;
     public static ArrayList<MusicBean> beans;
     public static TextView song;
-    private ImageButton words;
     private ImageButton setting;
     private ImageButton playMode;
     public TextView data_source;
@@ -153,7 +151,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         fileInfo = ScanMusic.getData(getActivity(),MediaActivity.current_source_path);
         data_source = view.findViewById(R.id.data_source);
         data_source.setText(MediaActivity.current_source_name);
-        source_switch = view.findViewById(R.id.ib);
+        source_switch = view.findViewById(R.id.arrow_down);
         source_switch.setOnClickListener(this);
         data_source.setOnClickListener(this);
         scanMusic();
@@ -500,8 +498,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                 music_play.setSelected(false);
             }
         }
-        folder = (ImageButton) view.findViewById(R.id.folder);
-        folder.setOnClickListener(this);
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
        if(musicService!=null){
            if (tag2 == false) {
@@ -534,8 +530,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         musictotal.setVisibility(View.INVISIBLE);
         song = (TextView) view.findViewById(R.id.song);
         song_pic = (ImageView)view.findViewById(R.id.song_pic);
-        words = (ImageButton) view.findViewById(R.id.words);
-        words.setOnClickListener(this);
         setting = (ImageButton) view.findViewById(R.id.setting);
         setting.setOnClickListener(this);
         playMode = (ImageButton) view.findViewById(R.id.playMode);
@@ -644,16 +638,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                 musicService.playOrPause();
                 Log.i("ccc",""+musicService.mediaPlayer.isPlaying());
                 break;
-            case R.id.folder:
-                //进入列表播放界面
-                if(MusicFragment.bean==null||beans.size()==0){
-                    Toast.makeText(getActivity(),"歌曲文件夹为空",Toast.LENGTH_SHORT).show();
-                }else {
-                    changeToListFragment();
-                }
-
-
-                break;
             case R.id.playMode:
                 //播放模式的切换单曲循环，随机播放，顺序播放
                 if (modeNumber<2){
@@ -673,12 +657,8 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                 intent.putExtra("app","media");
                 startActivity(intent);
                 Toast.makeText(getActivity(),"跳转到设置界面",Toast.LENGTH_SHORT).show();
-                //showPopuwindow();
                 break;
-            case R.id.words:
-                changeToWordsFragment();
-                break;
-            case R.id.ib:
+            case R.id.arrow_down:
             case R.id.data_source:
                 sourceDialog = new AlertDialog.Builder(getActivity()).create();
                 LinearLayout source_layout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.source_layout,null);
@@ -687,10 +667,10 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                     TextView item_title;
                     item_title = item.findViewById(R.id.source_title);
                     item_title.setText(key);
-                    if (key.equals("本地")){
+                    if (key.equals("蓝牙音乐")){
                         Drawable left = getActivity().getDrawable(R.drawable.folder);
                         item_title.setCompoundDrawablesWithIntrinsicBounds(left,null,null,null);
-                    } else {
+                    } else if(key.equals("U盘")){
                         Drawable left = getActivity().getDrawable(R.drawable.usb);
                         item_title.setCompoundDrawablesWithIntrinsicBounds(left,null,null,null);
                     }
@@ -725,7 +705,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                 TextView item_title;
                 item_title = item.findViewById(R.id.source_title);
                 item_title.setText("蓝牙音乐");
-                Drawable left = getActivity().getDrawable(R.drawable.usb);
+                Drawable left = getActivity().getDrawable(R.drawable.folder);
                 item_title.setCompoundDrawablesWithIntrinsicBounds(left,null,null,null);
                 item_title.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -770,7 +750,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         if (bluetoothAdapter != null
                 && bluetoothAdapter.isEnabled()
                 && bluetoothAdapter.getProfileConnectionState(11) == BluetoothProfile.STATE_CONNECTED) {
-//                                        data_source.setText(MediaActivity.current_source_name);
             changeBtMusicFragment("蓝牙音乐",context);
             musicService.playPause();
             MediaActivity.isBT=true;
@@ -805,12 +784,10 @@ private PopupWindow pop;
         myview.findViewById(R.id.bt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(MainActivity2.this, "点击了确定", Toast.LENGTH_SHORT).show();
                 pop.dismiss();
             }
         });
-        pop.showAsDropDown(folder);     //第一种方法以v为锚点在他下面弹出框。
-        pop.showAtLocation(folder, Gravity.CENTER, 100, 200);   //第二种方法，100 200是偏移量，在v的哪个位置，Gravity.CENTER是以V的中心为中心
+
     }
 
     //1是随机２是循环３是单曲循环
@@ -885,21 +862,7 @@ private PopupWindow pop;
     }
 
 
-    //进入到歌词模式
-    private Fragment wordsFagment;
-    private void changeToWordsFragment() {
-        if (beans.size()==0){
-            return;
-        }
-        wordsFagment=null;
-        wordsFagment = new MusicwordsFragment();
-        FragmentTransaction transaction= getActivity().getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("fileInfo", beans);
-        wordsFagment.setArguments(bundle);
-        transaction.replace(R.id.fragment_container,wordsFagment);
-        transaction.commit();
-    }
+
     /*处理歌词begin*/
     private void initLrc() {
         mlrcProcess = new LrcProcess();

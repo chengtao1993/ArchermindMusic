@@ -23,8 +23,8 @@ import java.util.List;
 public class LrcView extends TextView {
     private  float width; //歌词视图宽度
     private float height;
-    private  float textSize=18;//文本大小
-    private  float textHeight=25;//文本高度
+    private  float textSize=27;//文本大小
+    private  float textHeight=33;//文本高度
     private int index=0;//list集合下标
 
 
@@ -76,9 +76,9 @@ public class LrcView extends TextView {
         if (canvas==null){
             return;
         }
-        currentPaint.setColor(Color.argb(210,251,248,29));
+        currentPaint.setColor(Color.argb(210,30,144,255));
         notCurrentPaint.setColor(Color.argb(140,255,255,255));
-        currentPaint.setTextSize(24);
+        currentPaint.setTextSize(31);
         currentPaint.setTypeface(Typeface.SANS_SERIF);
         notCurrentPaint.setTextSize(textSize);
         currentPaint.setTypeface(Typeface.DEFAULT);
@@ -101,7 +101,7 @@ public class LrcView extends TextView {
              canvas.drawText(mlrclist.get(i).getLrcStr(),width/2,tempy,notCurrentPaint);
          }
           }catch (Exception e){
-            setText("未找到对应歌词");
+            setText("...未找到歌词...");
           }
 
     }
