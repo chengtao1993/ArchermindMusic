@@ -3,4 +3,6 @@
     <string name="hello_blank_fragment">Hello</string>
     <string name="tab_all">All</string>
     <string name="tab_favorite">Favorite</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

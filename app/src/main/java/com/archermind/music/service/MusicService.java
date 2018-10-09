@@ -88,7 +88,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         super.onCreate();
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
     }
-    // CH <BugId:2419> <lizhi> <20180324> modify end
+
 
    //对于歌曲的监听
     @Override

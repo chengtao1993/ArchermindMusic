@@ -89,9 +89,14 @@ public class MusicAdapter extends BaseAdapter {
             viewHolder.music_singer.setText(fileInfo.get(position).getText_singer());
             viewHolder.music_album.setText(fileInfo.get(position).getAlbum());
             if (position== MusicFragment.currentNumber){
-                viewHolder.music_name.setTextColor(Color.GREEN);
+                viewHolder.music_name.setTextColor(mContext.getResources().getColor(R.color.textSelected));
+                viewHolder.music_singer.setTextColor(mContext.getResources().getColor(R.color.textSelected));
+                viewHolder.music_album.setTextColor(mContext.getResources().getColor(R.color.textSelected));
             }else {
                 viewHolder.music_name.setTextColor(Color.WHITE);
+                viewHolder.music_singer.setTextColor(Color.WHITE);
+                viewHolder.music_album.setTextColor(Color.WHITE);
+
             }
         }
 
