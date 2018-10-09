@@ -135,7 +135,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="200dp"
-                android:src="@mipmap/equalizer" />
+                android:background="@mipmap/sound_settings" />
         </LinearLayout>
 
         <RelativeLayout
@@ -143,10 +143,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp">
-
-
-
-
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="match_parent"
