@@ -99,7 +99,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 MusicFragment.currentNumber=0;
             }
             MusicFragment.bean=MusicFragment.beans.get(MusicFragment.currentNumber);
-            //lastOrnext();
             if(MediaActivity.musicFragmentTab==5) {
                 MusicFragment.changeView();
             }else if(MediaActivity.musicFragmentTab==6){
