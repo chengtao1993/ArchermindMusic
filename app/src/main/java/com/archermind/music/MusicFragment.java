@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -97,6 +96,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     private LrcProcess mlrcProcess;
     private static ImageView song_pic;
     private static Context mContext;
+    private static TextView songer;
 
     /**
      * Use this factory method to create a new instance of
@@ -179,6 +179,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
             if (bean != null) {
                 MusicFragment.
                 song.setText(bean.getText_song());
+                songer.setText(bean.getText_singer());
                 song_pic.setImageBitmap(ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,false));
                 //Add by yanglin for Music Null string begin
                 current_time.setVisibility(View.VISIBLE);
@@ -187,13 +188,14 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
             }else {
                 //Add by yanglin for Music Null string begin
                 song.setText(STRING_NULL);
+                songer.setText(STRING_NULL);
                 song_pic.setImageBitmap(ScanMusic.getDefaultArtwork(mContext,false));
                 current_time.setVisibility(View.INVISIBLE);
                 musictotal.setVisibility(View.INVISIBLE);
                 //Add by yanglin for Music Null string end
             }
             current_time.setText(time.format(musicService.mediaPlayer.getCurrentPosition()));
-            musictotal.setText("/"+time.format(musicService.mediaPlayer.getDuration()));
+            musictotal.setText(time.format(musicService.mediaPlayer.getDuration()));
             handler.postDelayed(runnable, 200);
         }
     };
@@ -269,9 +271,10 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     };
 
     private void setdata() {
-        musictotal.setText("/"+time.format(musicService.mediaPlayer.getDuration()));
+        musictotal.setText(time.format(musicService.mediaPlayer.getDuration()));
         if (bean != null) {
             song.setText(bean.getText_song());
+            songer.setText(bean.getText_singer());
             song_pic.setImageBitmap(ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,false));
             //Add by yanglin for Music Null string begin
             current_time.setVisibility(View.VISIBLE);
@@ -280,6 +283,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         }else {
             //Add by yanglin for Music Null string begin
             song.setText(STRING_NULL);
+            songer.setText(STRING_NULL);
             song_pic.setImageBitmap(ScanMusic.getDefaultArtwork(mContext,false));
             current_time.setVisibility(View.INVISIBLE);
             musictotal.setVisibility(View.INVISIBLE);
@@ -308,7 +312,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
             }
 
         }else if("play_random".equals(musicsetting)){
-            //顺序播放
+            //随机播放
             modeNumber=2;
             playMode.setBackground(getResources().getDrawable(images[modeNumber]));
         }else if("recyle_order".equals(musicsetting)){
@@ -324,7 +328,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
             if(musicService.tag==false){
                 return;
             }
-            /*SystemProperties.set("service.gr.play","0");*/
+
             if (music_play.isSelected()) {
                 musicService.tag = false;
                 music_play.setSelected(false);
@@ -382,7 +386,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
     }
 
     public void receiveMessageAndSetData(){
-       /*SystemProperties.set("service.gr.show","1");*/
        //对获得的参数进行修订
        if("prev".equals(MediaActivity.message)){
            //上一首
@@ -402,7 +405,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
            }
 
        }else if("play_random".equals(MediaActivity.message)){
-           //顺序播放
+           //随机播放
            modeNumber=2;
            playMode.setBackground(getResources().getDrawable(images[modeNumber]));
        }else if("recyle_order".equals(MediaActivity.message)){
@@ -418,7 +421,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
            if(musicService.tag==false){
                return;
            }
-           /*SystemProperties.set("service.gr.play","0");*/
+
            if (music_play.isSelected()) {
                musicService.tag = false;
                music_play.setSelected(false);
@@ -529,6 +532,7 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
         current_time.setVisibility(View.INVISIBLE);
         musictotal.setVisibility(View.INVISIBLE);
         song = (TextView) view.findViewById(R.id.song);
+        songer = (TextView)view.findViewById(R.id.songer);
         song_pic = (ImageView)view.findViewById(R.id.song_pic);
         setting = (ImageButton) view.findViewById(R.id.setting);
         setting.setOnClickListener(this);
@@ -791,7 +795,7 @@ private PopupWindow pop;
     }
 
     //1是随机２是循环３是单曲循环
-    public static int[] images={R.mipmap.play_mode1,R.mipmap.play_mode2,R.mipmap.play_mode3};
+    public static int[] images={R.mipmap.play_mode1,R.drawable.play_mode2,R.drawable.play_mode3};
     public static int modeNumber=0;
 
     private void changeDataSource() {
@@ -801,8 +805,9 @@ private PopupWindow pop;
             musicService.dataSourceChanged();
             musicService.tag = true;
             music_play.setSelected(true);
-            musictotal.setText("/" + time.format(musicService.mediaPlayer.getDuration()));
+            musictotal.setText(time.format(musicService.mediaPlayer.getDuration()));
             song.setText(bean.getText_song());
+            songer.setText(bean.getText_singer());
             song_pic.setImageBitmap(ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,false));
             if (tag2 == false) {
                 handler.post(runnable);
@@ -812,6 +817,7 @@ private PopupWindow pop;
         }else if (beans.size() == 0){
             music_play.setSelected(false);
             song.setText(STRING_NULL);
+            songer.setText(STRING_NULL);
             song_pic.setImageBitmap(ScanMusic.getDefaultArtwork(getContext(),false));
             current_time.setText(STRING_NULL);
             musictotal.setText(STRING_NULL);
@@ -839,8 +845,9 @@ private PopupWindow pop;
         musicService.lastOrnext();
         musicService.tag = true;
         music_play.setSelected(true);
-        musictotal.setText("/"+time.format(musicService.mediaPlayer.getDuration()));
+        musictotal.setText(time.format(musicService.mediaPlayer.getDuration()));
         song.setText(bean.getText_song());
+        songer.setText(bean.getText_singer());
         song_pic.setImageBitmap(ScanMusic.getArtwork(mContext,bean.getId(),bean.getAlbumID(),true,false));
         if (tag2 == false) {
             handler.post(runnable);
