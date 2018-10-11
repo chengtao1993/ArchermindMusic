@@ -21,21 +21,13 @@ import java.util.Random;
 public class MusicService extends Service implements MediaPlayer.OnCompletionListener {
     //初始化媒体播放器
     public MediaPlayer mediaPlayer;
-    // CH <BugId:2419> <lizhi> <20180324> modify begin
     public AudioManager audioManager;
-    // CH <BugId:2419> <lizhi> <20180324> modify end
     public boolean tag = false;
     private Random rand;
     private int randnumber;
 
     public MusicService() {
         mediaPlayer = new MediaPlayer();
-//        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mp) {
-//               //SystemProperties.set("service.gr.play","0");
-//            }
-//        });
         try {
             if (MusicFragment.bean.getUri() == null) {
                 mediaPlayer.setDataSource(MusicFragment.bean.getPath());
@@ -52,7 +44,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     //  通过 Binder 来保持 Activity 和 Service 的通信
     public MusicBinder binder = new MusicBinder();
 
-    // CH <BugId:2419> <lizhi> <20180324> modify begin
     AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -80,9 +71,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             }
         }
     };
-    // CH <BugId:2419> <lizhi> <20180324> modify end
 
-    // CH <BugId:2419> <lizhi> <20180324> modify begin
     @Override
     public void onCreate() {
         super.onCreate();
@@ -145,30 +134,18 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
-            /*if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_PLAYING_STATUS, "0");
-            }*/
-           /*SystemProperties.set("service.gr.play","0");*/
+
         } else {
            Log.i("ccc","mediaPlayer.start()");
             mediaPlayer.start();
-           /* if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_PLAYING_STATUS, "1");
-            }*/
-            // CH <BugId:2419> <lizhi> <20180324> modify begin
             mediaPlayer.setVolume(1.0f, 1.0f);
             requestAudioFocus();
-            // CH <BugId:2419> <lizhi> <20180324> modify end
-            /*SystemProperties.set("service.gr.play","1");*/
         }
     }
 
     public void playPause() {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
-            /*if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_PLAYING_STATUS,"0");
-            }*/
         }
     }
     public boolean isPlaying(){
@@ -179,10 +156,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     public void stop() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
-            /*if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_CLOSE);
-            }*/
-           /* SystemProperties.set("service.gr.play","0");*/
             try {
                 mediaPlayer.reset();
                 if (MusicFragment.bean.getUri() == null) {
@@ -195,9 +168,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                // CH <BugId:2419> <lizhi> <20180324> modify begin
                 abandonAudioFocus();
-                // CH <BugId:2419> <lizhi> <20180324> modify end
             }
         }
     }
@@ -205,7 +176,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     //下一首
     public void lastOrnext(){
         mediaPlayer.stop();
-        /*SystemProperties.set("service.gr.play","0");*/
         try {
             mediaPlayer.reset();
             Log.i("music======","uri==========="+MusicFragment.bean.getUri());
@@ -217,10 +187,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             mediaPlayer.prepare();
             mediaPlayer.start();
             requestAudioFocus();
-            /*if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_PLAYING_STATUS,"1");
-            }*/
-           /* SystemProperties.set("service.gr.play","1");*/
+
         } catch (Exception e) {
             Log.i("ccc","播放失败"+e);
             Toast.makeText(getApplicationContext(),"不支持该文件类型",Toast.LENGTH_SHORT).show();
@@ -231,7 +198,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     public void dataSourceChanged(){
         try {
             mediaPlayer.stop();
-            /*SystemProperties.set("service.gr.play","0");*/
             mediaPlayer.reset();
             Log.i("music======","uri==========="+MusicFragment.bean.getUri());
             if (MusicFragment.bean.getUri() == null) {
@@ -242,10 +208,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             mediaPlayer.prepare();
             mediaPlayer.start();
             requestAudioFocus();
-            /*if (MediaActivity.mCarHUDManager != null) {
-                MediaActivity.mCarHUDManager.SendHudMoudlesValue(Car.HUD_MUSIC_PLAYING_STATUS,"1");
-            }*/
-            /*SystemProperties.set("service.gr.play","1");*/
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -261,7 +224,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         return binder;
     }
 
-    // CH <BugId:2419> <lizhi> <20180324> modify begin
     private void requestAudioFocus() {
         if (audioManager == null) return;
         int status = audioManager.requestAudioFocus(
@@ -270,15 +232,13 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 AudioManager.AUDIOFOCUS_GAIN);
         Log.i("lizhi", "MusicService requestAudioFocus status = " + status);
     }
-    // CH <BugId:2419> <lizhi> <20180324> modify end
 
-    // CH <BugId:2419> <lizhi> <20180324> modify begin
     private void abandonAudioFocus() {
         if (audioManager == null) return;
         int status = audioManager.abandonAudioFocus(
                 audioFocusChangeListener);
         Log.i("lizhi", "MusicService abandonAudioFocus status = " + status);
     }
-    // CH <BugId:2419> <lizhi> <20180324> modify end
+
 }
 

@@ -624,8 +624,6 @@ public class MusicFragment extends Fragment implements View.OnClickListener,Adap
                     music_play.setSelected(true);
                     //开始播放
                     if (MediaActivity.isFirstStart){
-                        //发送HUD
-                       /* sendHud();*/
                         MediaActivity.isFirstStart=false;
                     }
                     if (tag1 == false) {

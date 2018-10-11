@@ -76,7 +76,7 @@ public class LrcView extends TextView {
         if (canvas==null){
             return;
         }
-        currentPaint.setColor(Color.argb(210,30,144,255));
+        currentPaint.setColor(Color.argb(210,111,246,253));
         notCurrentPaint.setColor(Color.argb(140,255,255,255));
         currentPaint.setTextSize(31);
         currentPaint.setTypeface(Typeface.SANS_SERIF);

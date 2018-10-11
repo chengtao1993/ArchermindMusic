@@ -2,9 +2,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@android:id/background"
-        android:drawable="@drawable/ico_jindu" />
-    <item android:id="@android:id/progress">
+        android:drawable="@drawable/ico_jindu"
+        />
+
+    <item android:id="@android:id/progress"
+        >
         <clip android:drawable="@drawable/ico_liang" />
     </item>
+
 </layer-list>
 
