@@ -9,11 +9,8 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.archermind.music.MediaActivity;
-import com.archermind.music.R;
 import com.archermind.music.MusicFragment;
 import com.archermind.music.MusicListFragment;
-/*import android.os.SystemProperties;
-import android.car.export.Car;*/
 import android.widget.Toast;
 
 import java.util.Random;

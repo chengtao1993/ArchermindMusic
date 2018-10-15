@@ -100,14 +100,12 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".MusicAppWidget">
+        <receiver android:name=".view.MusicAppWidgetReceiver">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/music_app_widget_info" />
+
         </receiver>
     </application>
 
